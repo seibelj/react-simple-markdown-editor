@@ -26,6 +26,7 @@ var SimpleMarkdownEditor = require('react-simple-markdown-editor');
 ```
 
 In your React `render()` function:
+
 `<SimpleMarkdownEditor textAreaID={"myTextAreaElement"} />`
 
 ### API

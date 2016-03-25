@@ -33,7 +33,9 @@ SimpleMarkdownEditor.propTypes = {
 ```
 `textAreaID` (String, Required): The ID of the TextArea element you want the editor attached to. When you press buttons in this widget, the text in this TextArea will be modified.
 
-`styles`: (Object, optional): Used to overwrite inline CSS without using your own stylesheets. Existing properties:    
+`styles`: (Object, optional): Used to overwrite inline CSS without using your own stylesheets.
+
+Existing properties:    
 
 ```javascript
 container: {

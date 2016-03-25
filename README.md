@@ -5,10 +5,27 @@ This makes it easy to add a simple markdown editing widget to any TextArea eleme
 ### Demo
 moo
 
+### Installation
+`npm install react-simple-markdown-editor`
+
 ### Customizable
 Modify CSS easily with props, or add custom classes and modify CSS easily with stylesheets. You can also customize which buttons are shown.
 
 ### Usage
+
+In your code:
+
+ES6:
+```javascript
+import {SimpleMarkdownEditor} from 'react-simple-markdown-editor';
+```
+
+Non-ES6:
+```javascript
+var SimpleMarkdownEditor = require('react-simple-markdown-editor');
+```
+
+In your React `render()` function:
 `<SimpleMarkdownEditor textAreaID={"myTextAreaElement"} />`
 
 ### API

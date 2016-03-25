@@ -80,7 +80,7 @@ class SimpleMarkdownEditor extends React.Component {
     }
 
     render() {
-        console.log('props', this.props)
+        
         let styles = assign({}, this.constructor.styles, this.props.styles);
         return (
             <div className={this.props.containerClass} style={styles.container}>

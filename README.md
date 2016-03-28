@@ -8,8 +8,12 @@ moo
 ### Installation
 `npm install react-simple-markdown-editor`
 
-### Customizable
-Modify CSS easily with props, or add custom classes and modify CSS easily with stylesheets. You can also customize which buttons are shown.
+### Features
+
+ - Entirely customizable. Modify CSS easily with props, or add custom classes and modify CSS with stylesheets. Define which buttons are visible.
+ - The only package dependencies are `react` and `lodash`, minimizing risk.
+
+
 
 ### Usage
 
@@ -29,9 +33,12 @@ In your React `render()` function:
 
 `<SimpleMarkdownEditor textAreaID={"myTextAreaElement"} />`
 
+### Rendering Markdown
+Use another library like [react-remarkable](https://github.com/acdlite/react-remarkable) in combination with this. Then set the `source` of the remarkable component to the value of your TextArea element.
+
 ### API
 Props:
-```
+```javascript
 SimpleMarkdownEditor.propTypes = {
     // Required props
     textAreaID: PropTypes.string.isRequired,
@@ -40,13 +47,7 @@ SimpleMarkdownEditor.propTypes = {
     styles: PropTypes.object,
     containerClass: PropTypes.string,
     buttonClass: PropTypes.string,
-    enableBold: PropTypes.bool,
-    enableItalic: PropTypes.bool,
-    enableH1: PropTypes.bool,
-    enableH2: PropTypes.bool,
-    enableH3: PropTypes.bool,
-    enableBullet: PropTypes.bool,
-    enableLink: PropTypes.bool
+    enabledButtons: PropTypes.object
 };
 ```
 `textAreaID` (String, Required): The ID of the TextArea element you want the editor attached to. When you press buttons in this widget, the text in this TextArea will be modified.
@@ -75,9 +76,24 @@ button: {
 For instance, if you want to add a border to each button:
 `<SimpleMarkdownEditor styles={{button: {border: '1px solid green'}}} />`
 
-`containerClass` and `buttonClass` (String, optional): Provide classes to the container and button elements, so you can overwrite them using your own CSS. An alternative to passing the `styles` props.
+`containerClass` and `buttonClass` (String, optional): Provide classes to the container and button elements, so you can overwrite them using your own CSS stylesheets. An alternative to setting the `styles` prop.
 
-`enableBold`, `enableItalic`, etc. (Boolean, optional): Hide any buttons you don't want to show. All of them default to showing.
+`enabledButtons`: (Object, optional): Hide any buttons you don't want to show. All of them default to showing. Buttons:
+
+```javascript
+{
+    bold: true,
+    italic: true,
+    h1: true,
+    h2: true,
+    h3: true,
+    bullet: true,
+    link: true,
+    image: true
+}
+```
+For instance, if you want to hide the link button:
+`<SimpleMarkdownEditor enabledButtons={{link: false}} />`
 
 ### License
 MIT, use for free. If you like this, give it a star.

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {assign} from 'lodash';
+import {merge} from 'lodash';
 
 class SimpleMarkdownEditor extends React.Component {
 
@@ -81,42 +81,48 @@ class SimpleMarkdownEditor extends React.Component {
 
     render() {
         
-        let styles = assign({}, this.constructor.styles, this.props.styles);
+        let styles = merge({}, this.constructor.styles, this.props.styles),
+            enabledButtons = merge({}, this.constructor.enabledButtons, this.props.enabledButtons);
         return (
             <div className={this.props.containerClass} style={styles.container}>
-                {this.props.enableBold &&
+                {enabledButtons.bold &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertBold.bind(this)}>
                     B
                 </div>
                 }
-                {this.props.enableItalic &&
+                {enabledButtons.italic &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertItalics.bind(this)}>
                     <i>I</i>
                 </div>
                 }
-                {this.props.enableH1 &&
+                {enabledButtons.h1 &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH1.bind(this)}>
                     H1
                 </div>
                 }
-                {this.props.enableH2 &&
+                {enabledButtons.h2 &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH2.bind(this)}>
                     H2
                 </div>
                 }
-                {this.props.enableH3 &&
+                {enabledButtons.h3 &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH3.bind(this)}>
                     H3
                 </div>
                 }
-                {this.props.enableBullet &&
+                {enabledButtons.bullet &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertBullet.bind(this)}>
                     &#8226;
                 </div>
                 }
-                {this.props.enableLink &&
+                {enabledButtons.link &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertLink.bind(this)}>
                     #
+                </div>
+                }
+                {enabledButtons.image &&
+                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertLink.bind(this)}>
+                    [img]
                 </div>
                 }
 
@@ -142,6 +148,17 @@ SimpleMarkdownEditor.styles = {
     }
 };
 
+SimpleMarkdownEditor.enabledButtons = {
+    bold: true,
+    italic: true,
+    h1: true,
+    h2: true,
+    h3: true,
+    bullet: true,
+    link: true,
+    image: true
+}
+
 SimpleMarkdownEditor.propTypes = {
     // Required props
     textAreaID: PropTypes.string.isRequired,
@@ -150,23 +167,7 @@ SimpleMarkdownEditor.propTypes = {
     styles: PropTypes.object,
     containerClass: PropTypes.string,
     buttonClass: PropTypes.string,
-    enableBold: PropTypes.bool,
-    enableItalic: PropTypes.bool,
-    enableH1: PropTypes.bool,
-    enableH2: PropTypes.bool,
-    enableH3: PropTypes.bool,
-    enableBullet: PropTypes.bool,
-    enableLink: PropTypes.bool
+    enabledButtons: PropTypes.object
 };
-
-SimpleMarkdownEditor.defaultProps = {
-    enableBold: true,
-    enableItalic: true,
-    enableH1: true,
-    enableH2: true,
-    enableH3: true,
-    enableBullet: true,
-    enableLink: true
-}
 
 exports.SimpleMarkdownEditor = SimpleMarkdownEditor;

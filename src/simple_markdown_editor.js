@@ -26,7 +26,15 @@ class SimpleMarkdownEditor extends React.Component {
     }
 
     insertItalics() {
-        this.wrapText('*');
+        this.wrapText('_');
+    }
+
+    insertStrike() {
+        this.wrapText('~~');
+    }
+
+    insertCode() {
+        this.wrapText('`');
     }
 
     insertAtBeginningOfLine(symbol) {
@@ -58,6 +66,10 @@ class SimpleMarkdownEditor extends React.Component {
         this.insertAtBeginningOfLine('### ');
     }
 
+    insertQuote() {
+        this.insertAtBeginningOfLine('> ');
+    }
+
     insertBullet() {
         this.insertAtBeginningOfLine('* ');
     }
@@ -79,6 +91,23 @@ class SimpleMarkdownEditor extends React.Component {
         }
     }
 
+    insertImage() {
+        let elem = document.getElementById(this.props.textAreaID),
+            start = elem.selectionStart,
+            end = elem.selectionEnd,
+            text = elem.value,
+            link = "(http://myhost.com/my_image.jpg)";
+
+        if (start === end) {
+            elem.value = text.substring(0, start) + "![Image Description]" + link + text.substring(start, text.length);
+            elem.focus();
+            elem.setSelectionRange(start, start);
+        }
+        else {
+            this.wrapText('![', ']', link);
+        }
+    }
+
     render() {
         
         let styles = merge({}, this.constructor.styles, this.props.styles),
@@ -94,6 +123,21 @@ class SimpleMarkdownEditor extends React.Component {
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertItalics.bind(this)}>
                     <i>I</i>
                 </div>
+                }
+                {enabledButtons.strike &&
+                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertStrike.bind(this)}>
+                        <s>S</s>
+                    </div>
+                }
+                {enabledButtons.code &&
+                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertCode.bind(this)}>
+                        &lt; &gt;
+                    </div>
+                }
+                {enabledButtons.quote &&
+                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertQuote.bind(this)}>
+                        &ldquo; &rdquo;
+                    </div>
                 }
                 {enabledButtons.h1 &&
                 <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH1.bind(this)}>
@@ -121,8 +165,8 @@ class SimpleMarkdownEditor extends React.Component {
                 </div>
                 }
                 {enabledButtons.image &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertLink.bind(this)}>
-                    [img]
+                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertImage.bind(this)}>
+                    [i]
                 </div>
                 }
 
@@ -151,6 +195,9 @@ SimpleMarkdownEditor.styles = {
 SimpleMarkdownEditor.enabledButtons = {
     bold: true,
     italic: true,
+    strike: true,
+    code: true,
+    quote: true,
     h1: true,
     h2: true,
     h3: true,

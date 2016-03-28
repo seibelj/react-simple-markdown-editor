@@ -3,7 +3,7 @@ This makes it easy to add a simple markdown editing widget to any TextArea eleme
 ![example](https://raw.githubusercontent.com/seibelj/react-simple-markdown-editor/master/doc/pic.png)
 
 ### Demo
-moo
+[CodePen Demo](http://codepen.io/seibelj/pen/rewRMe)
 
 ### Installation
 `npm install react-simple-markdown-editor`
@@ -84,6 +84,9 @@ For instance, if you want to add a border to each button:
 {
     bold: true,
     italic: true,
+    strike: true,
+    code: true,
+    quote: true,
     h1: true,
     h2: true,
     h3: true,

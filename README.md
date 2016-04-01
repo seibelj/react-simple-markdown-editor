@@ -47,7 +47,9 @@ SimpleMarkdownEditor.propTypes = {
     styles: PropTypes.object,
     containerClass: PropTypes.string,
     buttonClass: PropTypes.string,
-    enabledButtons: PropTypes.object
+    enabledButtons: PropTypes.object,
+    buttonHtmlText: PropTypes.object,
+    additionalProps: PropTypes.object
 };
 ```
 `textAreaID` (String, Required): The ID of the TextArea element you want the editor attached to. When you press buttons in this widget, the text in this TextArea will be modified.
@@ -97,6 +99,29 @@ For instance, if you want to add a border to each button:
 ```
 For instance, if you want to hide the link button:
 `<SimpleMarkdownEditor enabledButtons={{link: false}} />`
+
+`buttonHtmlText`: (Object, optional): Change the display text of any buttons, including any HTML markup. Defaults:
+
+```javascript
+{
+    bold: 'B',
+    italic: '<i>I</i>',
+    strike: '<s>S</s>',
+    code: '&lt; &gt;',
+    quote: '&ldquo; &rdquo;',
+    h1: 'H1',
+    h2: 'H2',
+    h3: 'H3',
+    bullet: '&#8226;',
+    link: '#',
+    image: '[i]'
+}
+```
+For instance, if you want to change `code` to be a square `quote` to be 2 right arrows:
+`<SimpleMarkdownEditor buttonHtmlText={{code: '&#9633;', quote: '&#8649;'}} />`
+
+`additionalProps`: (Object, optional): Add arbitrary props to any button. For instance:
+`<SimpleMarkdownEditor additionalProps={{bold: {title: "bold"}}} />`
 
 ### License
 MIT, use for free. If you like this, give it a star.

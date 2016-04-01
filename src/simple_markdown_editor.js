@@ -111,63 +111,55 @@ class SimpleMarkdownEditor extends React.Component {
     render() {
         
         let styles = merge({}, this.constructor.styles, this.props.styles),
-            enabledButtons = merge({}, this.constructor.enabledButtons, this.props.enabledButtons);
+            enabledButtons = merge({}, this.constructor.enabledButtons, this.props.enabledButtons),
+            buttonHtmlText = merge({}, this.constructor.buttonHtmlText, this.props.buttonHtmlText),
+            additionalProps = merge({}, this.constructor.additionalProps, this.props.additionalProps);
+
         return (
             <div className={this.props.containerClass} style={styles.container}>
                 {enabledButtons.bold &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertBold.bind(this)}>
-                    B
-                </div>
+                <div {...additionalProps.bold} className={this.props.buttonClass} style={styles.button} onClick={this.insertBold.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.bold}} />
                 }
                 {enabledButtons.italic &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertItalics.bind(this)}>
-                    <i>I</i>
-                </div>
+                <div {...additionalProps.italic} className={this.props.buttonClass} style={styles.button} onClick={this.insertItalics.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.italic}} />
                 }
                 {enabledButtons.strike &&
-                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertStrike.bind(this)}>
-                        <s>S</s>
-                    </div>
+                    <div {...additionalProps.strike} className={this.props.buttonClass} style={styles.button} onClick={this.insertStrike.bind(this)}
+                         dangerouslySetInnerHTML={{__html: buttonHtmlText.strike}} />
                 }
                 {enabledButtons.code &&
-                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertCode.bind(this)}>
-                        &lt; &gt;
-                    </div>
+                    <div {...additionalProps.code} className={this.props.buttonClass} style={styles.button} onClick={this.insertCode.bind(this)}
+                         dangerouslySetInnerHTML={{__html: buttonHtmlText.code}} />
                 }
                 {enabledButtons.quote &&
-                    <div className={this.props.buttonClass} style={styles.button} onClick={this.insertQuote.bind(this)}>
-                        &ldquo; &rdquo;
-                    </div>
+                    <div {...additionalProps.quote} className={this.props.buttonClass} style={styles.button} onClick={this.insertQuote.bind(this)}
+                         dangerouslySetInnerHTML={{__html: buttonHtmlText.quote}} />
                 }
                 {enabledButtons.h1 &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH1.bind(this)}>
-                    H1
-                </div>
+                <div {...additionalProps.h1} className={this.props.buttonClass} style={styles.button} onClick={this.insertH1.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.h1}} />
                 }
                 {enabledButtons.h2 &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH2.bind(this)}>
-                    H2
-                </div>
+                <div {...additionalProps.h2} className={this.props.buttonClass} style={styles.button} onClick={this.insertH2.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.h2}} />
                 }
                 {enabledButtons.h3 &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertH3.bind(this)}>
-                    H3
-                </div>
+                <div {...additionalProps.h3} className={this.props.buttonClass} style={styles.button} onClick={this.insertH3.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.h3}} />
                 }
                 {enabledButtons.bullet &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertBullet.bind(this)}>
-                    &#8226;
-                </div>
+                <div {...additionalProps.bullet} className={this.props.buttonClass} style={styles.button} onClick={this.insertBullet.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.bullet}} />
                 }
                 {enabledButtons.link &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertLink.bind(this)}>
-                    #
-                </div>
+                <div {...additionalProps.link} className={this.props.buttonClass} style={styles.button} onClick={this.insertLink.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.link}} />
                 }
                 {enabledButtons.image &&
-                <div className={this.props.buttonClass} style={styles.button} onClick={this.insertImage.bind(this)}>
-                    [i]
-                </div>
+                <div {...additionalProps.image} className={this.props.buttonClass} style={styles.button} onClick={this.insertImage.bind(this)}
+                     dangerouslySetInnerHTML={{__html: buttonHtmlText.image}} />
                 }
 
             </div>
@@ -206,6 +198,34 @@ SimpleMarkdownEditor.enabledButtons = {
     image: true
 }
 
+SimpleMarkdownEditor.buttonHtmlText = {
+    bold: 'B',
+    italic: '<i>I</i>',
+    strike: '<s>S</s>',
+    code: '&lt; &gt;',
+    quote: '&ldquo; &rdquo;',
+    h1: 'H1',
+    h2: 'H2',
+    h3: 'H3',
+    bullet: '&#8226;',
+    link: '#',
+    image: '[i]'
+}
+
+SimpleMarkdownEditor.additionalProps = {
+    bold: {},
+    italic: {},
+    strike: {},
+    code: {},
+    quote: {},
+    h1: {},
+    h2: {},
+    h3: {},
+    bullet: {},
+    link: {},
+    image: {}
+}
+
 SimpleMarkdownEditor.propTypes = {
     // Required props
     textAreaID: PropTypes.string.isRequired,
@@ -214,7 +234,9 @@ SimpleMarkdownEditor.propTypes = {
     styles: PropTypes.object,
     containerClass: PropTypes.string,
     buttonClass: PropTypes.string,
-    enabledButtons: PropTypes.object
+    enabledButtons: PropTypes.object,
+    buttonHtmlText: PropTypes.object,
+    additionalProps: PropTypes.object
 };
 
 exports.SimpleMarkdownEditor = SimpleMarkdownEditor;
